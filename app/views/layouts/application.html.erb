@@ -26,5 +26,12 @@
     <%= yield %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <% unless devise_controller? %>
+      <% if user_signed_in? %>
+        <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
+      <% elsif !user_signed_in? %>
+        <%= link_to "Sign In", new_user_session_path %>
+      <% end %> 
+    <% end %>
   </body>
 </html>

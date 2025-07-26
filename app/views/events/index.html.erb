@@ -1,1 +1,18 @@
-<h1>Hello There!</h1>
+<h1>Events</h1>
+
+<ul>
+    <% @events.each do |event| %>
+        <li>
+            <a href="/events/<%= event.id %>">
+            <%= event.name %><br>
+            </a>
+            Creator: <%= event.creator.name %>
+        </li>
+    <% end %>
+</ul>
+
+<%= link_to "New Event", new_event_path %><br><br>
+
+<% if user_signed_in? %>
+    <%= link_to "Show My Events", user_path(current_user) %>
+<% end %>

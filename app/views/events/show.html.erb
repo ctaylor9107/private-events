@@ -1,5 +1,12 @@
 <h1><%= @event.name %></h1>
 
+ <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+<% end %>
+
+
 <h2>Details</h2>
 <ul>
     <li>Creator: <%= @event.creator.name %></li>
@@ -7,3 +14,22 @@
     <li>Date: <%= @event.date %></li>
     <li>Time: <%= @event.time %></li>
 </ul>
+
+<h2>Attendees</h2>
+<ul>
+    <% @attendees.each do |attendee| %>
+        <li>
+            <%= attendee.name %>
+        </li>
+    <% end %>
+</ul>
+
+
+<% if @event.creator.id != current_user.id && !@attendees.ids.include?(current_user.id) %>
+    <%= form_with model: @attendee_info do |form| %>
+        <%= form.hidden_field :attended_event_id, value: @event.id %>
+        <div>
+            <%= form.submit "Attend this event?" %>
+        </div>
+    <% end %>
+<% end %>

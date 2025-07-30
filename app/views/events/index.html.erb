@@ -1,7 +1,22 @@
 <h1>Events</h1>
 
+<h2>Future Events</h2>
+
 <ul>
-    <% @events.each do |event| %>
+    <% @future_events.each do |event| %>
+        <li>
+            <a href="/events/<%= event.id %>">
+            <%= event.name %><br>
+            </a>
+            Creator: <%= event.creator.name %>
+        </li>
+    <% end %>
+</ul>
+
+<h2>Past Events</h2>
+
+<ul>
+    <% @past_events.each do |event| %>
         <li>
             <a href="/events/<%= event.id %>">
             <%= event.name %><br>

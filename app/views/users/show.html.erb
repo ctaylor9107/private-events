@@ -1,9 +1,52 @@
-<h1>My Events</h1>
+<h1><%= @user.name %>'s Events</h1>
+
+<h2>Events I'm Hosting</h2>
 
 <ul>
-    <% @events.each do |event| %>
-        <a href="/events/<%= event.id %>">
-            <%= event.name %><br>
-        </a>
+    <% @created_events.each do |event| %>
+        <li>
+            <a href="/events/<%= event.id %>">
+                <%= event.name %><br>
+            </a>
+        </li>
+    <% end %>
+</ul>
+
+
+<h2>Events I'm Attending</h2>
+
+<h3>Future Events</h3>
+
+<% future_events = [] %>
+<% past_events = [] %>
+
+
+<% @attending_events.each do |event| %>
+    <% if event.date > Time.now.midnight %>
+        <% future_events.push(event) %>
+    <% elsif event.date < Time.new.midnight %>
+        <% past_events.push(event) %>
+    <% end %>
+<% end %>
+
+<ul>
+    <% future_events.each do |event| %>
+        <li>
+            <a href="/events/<%= event.id %>">
+                <%= event.name %>
+            </a>
+        </li>
+    <% end %>
+</ul>
+
+<h3>Past Events</h3>
+
+<ul>
+    <% past_events.each do |event| %>
+        <li>
+            <a href="/events/<%= event.id %>">
+                <%= event.name %>
+            </a>
+        </li>
     <% end %>
 </ul>

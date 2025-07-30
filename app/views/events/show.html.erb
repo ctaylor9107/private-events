@@ -24,12 +24,13 @@
     <% end %>
 </ul>
 
-
-<% if @event.creator.id != current_user.id && !@attendees.ids.include?(current_user.id) %>
-    <%= form_with model: @attendee_info do |form| %>
-        <%= form.hidden_field :attended_event_id, value: @event.id %>
-        <div>
-            <%= form.submit "Attend this event?" %>
-        </div>
+<% if user_signed_in? %>
+    <% if @event.creator.id != current_user.id && !@attendees.ids.include?(current_user.id) %>
+        <%= form_with model: @attendee_info do |form| %>
+            <%= form.hidden_field :attended_event_id, value: @event.id %>
+            <div>
+                <%= form.submit "Attend this event?" %>
+            </div>
+        <% end %>
     <% end %>
 <% end %>
